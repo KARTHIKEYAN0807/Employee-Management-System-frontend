@@ -8,7 +8,9 @@ const Register = ({ onRegister }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onRegister(username, password, navigate); // Pass navigate to handleRegister
+        onRegister(username, password);
+        alert('Registration successful! You can now log in.');
+        navigate('/login'); // Navigate to the login page after registration
     };
 
     return (
@@ -23,7 +25,6 @@ const Register = ({ onRegister }) => {
                         className="form-control"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        required
                     />
                 </div>
                 <div className="mb-3">
@@ -34,10 +35,15 @@ const Register = ({ onRegister }) => {
                         className="form-control"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        required
                     />
                 </div>
                 <button type="submit" className="btn btn-primary w-100">Register</button>
+                <div className="text-center mt-3">
+                    <p>Already have an account?</p>
+                    <button type="button" className="btn btn-link" onClick={() => navigate('/login')}>
+                        Go to Login
+                    </button>
+                </div>
             </form>
         </div>
     );
