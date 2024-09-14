@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
 import Dashboard from './Dashboard';
@@ -17,7 +17,7 @@ function App() {
         }
     }, [loggedInUser]);
 
-    const handleRegister = async (username, password) => {
+    const handleRegister = async (username, password, navigate) => {
         try {
             const response = await axios.post('https://employee-management-system-backend-39a4.onrender.com/api/register', {
                 username,
