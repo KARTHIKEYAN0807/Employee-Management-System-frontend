@@ -1,21 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
 import Dashboard from './Dashboard';
+import axios from 'axios'; // Import axios for API calls
 
 function App() {
-    const [registeredUser, setRegisteredUser] = useState(() => {
-        const savedUser = localStorage.getItem('registeredUser');
-        return savedUser ? JSON.parse(savedUser) : null;
-    });
+    const navigate = useNavigate();
+    const [registeredUser, setRegisteredUser] = useState(null);
     const [loggedInUser, setLoggedInUser] = useState(() => localStorage.getItem('loggedInUser'));
-
-    useEffect(() => {
-        if (registeredUser) {
-            localStorage.setItem('registeredUser', JSON.stringify(registeredUser));
-        }
-    }, [registeredUser]);
 
     useEffect(() => {
         if (loggedInUser) {
@@ -25,16 +18,30 @@ function App() {
         }
     }, [loggedInUser]);
 
-    const handleRegister = (username, password) => {
-        setRegisteredUser({ username, password });
+    const handleRegister = async (username, password) => {
+        try {
+            const response = await axios.post('https://employee-management-system-backend-39a4.onrender.com/api/register', {
+                username,
+                password,
+            });
+            if (response.status === 201) {
+                alert('Registration successful! You can now log in.');
+                navigate('/login'); // Redirect to login page
+            }
+        } catch (error) {
+            console.error('Registration error:', error);
+            alert('Registration failed. Please try again.');
+        }
     };
 
     const handleLogin = (username) => {
         setLoggedInUser(username);
+        navigate('/dashboard'); // Redirect to dashboard after login
     };
 
     const handleLogout = () => {
         setLoggedInUser(null);
+        navigate('/'); // Redirect to register page after logout
     };
 
     return (
