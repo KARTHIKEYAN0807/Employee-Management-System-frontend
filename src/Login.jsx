@@ -11,7 +11,7 @@ const Login = ({ onLogin }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:5000/api/login', {
+            const response = await axios.post('https://employee-management-system-backend-39a4.onrender.com/api/login', {
                 username,
                 password
             }, {
