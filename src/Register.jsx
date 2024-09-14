@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 const Register = ({ onRegister }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onRegister(username, password);
-        alert('Registration successful! You can now log in.');
-        navigate('/login'); // Navigate to the login page
+        onRegister(username, password); // Call parent handler to register and navigate
     };
 
     return (
@@ -25,6 +21,7 @@ const Register = ({ onRegister }) => {
                         className="form-control"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
+                        required
                     />
                 </div>
                 <div className="mb-3">
@@ -35,6 +32,7 @@ const Register = ({ onRegister }) => {
                         className="form-control"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        required
                     />
                 </div>
                 <button type="submit" className="btn btn-primary w-100">Register</button>

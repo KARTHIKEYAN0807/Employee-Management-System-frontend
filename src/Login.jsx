@@ -44,6 +44,7 @@ const Login = ({ onLogin }) => {
                         className="form-control"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
+                        required
                     />
                 </div>
                 <div className="mb-3">
@@ -54,6 +55,7 @@ const Login = ({ onLogin }) => {
                         className="form-control"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        required
                     />
                 </div>
                 <button type="submit" className="btn btn-primary w-100">Login</button>

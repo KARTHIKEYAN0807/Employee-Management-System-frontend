@@ -6,7 +6,6 @@ import Dashboard from './Dashboard';
 import axios from 'axios'; // Import axios for API calls
 
 function App() {
-    const navigate = useNavigate();
     const [registeredUser, setRegisteredUser] = useState(null);
     const [loggedInUser, setLoggedInUser] = useState(() => localStorage.getItem('loggedInUser'));
 
@@ -26,6 +25,7 @@ function App() {
             });
             if (response.status === 201) {
                 alert('Registration successful! You can now log in.');
+                setRegisteredUser({ username, password });
                 navigate('/login'); // Redirect to login page
             }
         } catch (error) {
@@ -36,23 +36,21 @@ function App() {
 
     const handleLogin = (username) => {
         setLoggedInUser(username);
-        navigate('/dashboard'); // Redirect to dashboard after login
     };
 
     const handleLogout = () => {
         setLoggedInUser(null);
+        localStorage.removeItem('token'); // Remove token on logout
         navigate('/'); // Redirect to register page after logout
     };
 
     return (
         <Router>
-            <div className="App">
-                <Routes>
-                    <Route path="/" element={<Register onRegister={handleRegister} />} />
-                    <Route path="/login" element={<Login registeredUser={registeredUser} onLogin={handleLogin} />} />
-                    <Route path="/dashboard" element={<Dashboard username={loggedInUser} onLogout={handleLogout} />} />
-                </Routes>
-            </div>
+            <Routes>
+                <Route path="/" element={<Register onRegister={handleRegister} />} />
+                <Route path="/login" element={<Login registeredUser={registeredUser} onLogin={handleLogin} />} />
+                <Route path="/dashboard" element={<Dashboard username={loggedInUser} onLogout={handleLogout} />} />
+            </Routes>
         </Router>
     );
 }
