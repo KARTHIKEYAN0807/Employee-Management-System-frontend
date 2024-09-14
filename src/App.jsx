@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-route
 import Login from './Login';
 import Register from './Register';
 import Dashboard from './Dashboard';
-import axios from 'axios'; // Import axios for API calls
+import axios from 'axios';
 
 function App() {
     const [registeredUser, setRegisteredUser] = useState(null);
@@ -41,7 +41,6 @@ function App() {
     const handleLogout = () => {
         setLoggedInUser(null);
         localStorage.removeItem('token'); // Remove token on logout
-        navigate('/'); // Redirect to register page after logout
     };
 
     return (
