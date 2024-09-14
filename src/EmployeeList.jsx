@@ -26,7 +26,7 @@ const EmployeeList = () => {
                 return;
             }
 
-            const response = await axios.get('http://localhost:5000/api/employees', {
+            const response = await axios.get('https://employee-management-system-backend-39a4.onrender.com/api/employees', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -59,7 +59,7 @@ const EmployeeList = () => {
                 return;
             }
 
-            await axios.delete(`http://localhost:5000/api/employees/${id}`, {
+            await axios.delete(`https://employee-management-system-backend-39a4.onrender.com/api/employees/${id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -99,7 +99,7 @@ const EmployeeList = () => {
         if (isEditing) {
             // Update employee in the backend
             try {
-                await axios.put(`http://localhost:5000/api/employees/${employee._id}`, formData, {
+                await axios.put(`https://employee-management-system-backend-39a4.onrender.com/api/employees/${employee._id}`, formData, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'multipart/form-data'
@@ -115,7 +115,7 @@ const EmployeeList = () => {
         } else {
             // Create a new employee in the backend
             try {
-                const response = await axios.post('http://localhost:5000/api/employees', formData, {
+                const response = await axios.post('https://employee-management-system-backend-39a4.onrender.com/api/employees', formData, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'multipart/form-data'
